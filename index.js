@@ -38,7 +38,6 @@ Pokemon.prototype.useYourMoves = function () {
     return `${this.name} used ${this.move}!`;
 }
 
-
 function Trainer(name) {
     this.name = name;
     this.pokedex = {};
@@ -79,7 +78,7 @@ Trainer.prototype.catch = function (pokeballType) {
         console.log(this.pokedex);
     }
 }
-Trainer.prototype.addPokemon = function(name, HP, attackDamage, sound, move, type = 'default') {
+Trainer.prototype.addPokemon = function(name, HP = 70, attackDamage = 1, sound = 'whine', move = 'struggle', type = 'default') {
     this.pokedex.numberOfPokemon++;
     this.pokedex[this.pokedex.numberOfPokemon] = new Pokemon(name, HP, attackDamage, sound, move, type);
 
@@ -109,23 +108,26 @@ Battle.prototype.fight = function () {
     console.log(firstTurn);
     console.log(secondTurn)
     let effect;
+    let effect2;
     let pokemon1Attack = firstTurn.attackDamage;
     let pokemon2Attack = secondTurn.attackDamage;
-    if(firstTurn.type === secondTurn.weakness){pokemon1Attack *= 1.25; effect ='It`s not very effective :('}
-    if (firstTurn.type === secondTurn.strength){pokemon1Attack *= 0.75;effect = 'It` super effective!!'};
-    if(secondTurn.type === firstTurn.weakness){pokemon2Attack *= 1.25; effect ='It`s not very effective :('}
-    if (secondTurn.type === firstTurn.strength){pokemon2Attack *= 0.75; effect = 'It` super effective!!'};
+    if (firstTurn.type === secondTurn.weakness){pokemon1Attack *= 1.25; effect = 'It`s super effective!!'}
+    if (firstTurn.type === secondTurn.strength){pokemon1Attack *= 0.75; effect = 'It`s not very effective :('};
+    if (secondTurn.type === firstTurn.weakness){pokemon2Attack *= 1.25; effect2 = 'It`s super effective!!'}
+    if (secondTurn.type === firstTurn.strength){pokemon2Attack *= 0.75; effect2 = 'It`s not very effective :('};
 
     while (firstTurn.HP > 0 && secondTurn.HP > 0){
        if (firstTurn.HP > 0){
         secondTurn.HP  =  secondTurn.HP - pokemon1Attack;
         console.log(`${firstTurn.name} used ${firstTurn.move}\n ${firstTurn.sound}.\n${effect}`)
-        console.log(`${secondTurn.name} has dropped to ${secondTurn.HP} hp`)
+        console.log(`${secondTurn.name} has dropped to ${secondTurn.HP} HP`)
     };
         if (secondTurn.HP > 0){    
       firstTurn.HP = firstTurn.HP - pokemon2Attack;
-      console.log(`${secondTurn.name} used ${secondTurn.move}\n ${secondTurn.sound}.\n${effect}`)
-      console.log(`${firstTurn.name} has dropped to ${firstTurn.HP} hp`)
+      console.log(`${secondTurn.name} used ${secondTurn.move}\n ${secondTurn.sound}.\n${effect2}`)
+    //   let pokemonSound = new Sound(`/pokemonNoises/${secondTurn.name}.mp3`);
+    //     pokemonSound.play();
+      console.log(`${firstTurn.name} has dropped to ${firstTurn.HP} HP`)
         }
       if (secondTurn.HP <= 0) console.log(`${firstTurn.name} wins!!!!`);
        if (firstTurn.HP <= 0){ console.log(`${secondTurn.name} wins!!!`)};
@@ -133,8 +135,10 @@ Battle.prototype.fight = function () {
 
     };
 
-
-
+// Battle.prototype.pokemonNoise = function (name) {
+//     pokemonSound = new Sound(`/pokemonNoises/${name}.mp3`);
+//     mySound.play();
+// }
 
 module.exports = {Pokemon, Trainer, Battle};
  
