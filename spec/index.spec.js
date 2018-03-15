@@ -1,7 +1,7 @@
 const {expect} = require('chai');
-const Pokemon = require('../index.js');
-const Trainer = require('../index.js');
-const Battle = require('../index.js');
+const {Pokemon, Trainer, Battle} = require('../index.js');
+
+//const Battle = require('../index.js');
 
 describe('Pokemon', function () {
     it('creates a Pokemon object with a name property', function () {
@@ -18,7 +18,8 @@ describe('Pokemon', function () {
         expect(bulbasaur).to.hasOwnProperty('sound');
         expect(bulbasaur.sound).to.equal('bulba-growl');        
         expect(bulbasaur).to.hasOwnProperty('move');
-        expect(bulbasaur.move).to.equal('vine whip');     
+        expect(bulbasaur.move).to.equal('vine whip');
+        console.log(bulbasaur);     
     });
     it('creates a Pokemon object with the correct strength, weakness and type', function () {
         const bulbasaur = new Pokemon('bulbasaur', 100, 25, 'bulba-growl', 'vine whip', 'grass');
@@ -50,12 +51,13 @@ describe('Pokemon', function () {
     });
 });
 
-describe.only('Trainer', function () {
+describe('Trainer', function () {
    it('creates a Trainer object with a name property', function () {
         const ash = new Trainer('ash');
         expect(ash).to.hasOwnProperty('name');
         expect(ash.name).to.equal('ash');
     });
+
     it('creates a set within the Trainer object to store Pokemon in', function () {
         const ash = new Trainer('ash');
         expect(ash).to.hasOwnProperty('pokeballs');
@@ -70,6 +72,37 @@ describe.only('Trainer', function () {
         expect(ash.pokedex).to.hasOwnProperty('1');
         expect(ash.pokedex).to.hasOwnProperty('2');        
     });
+    it('add pokemon to trainers pokedex without them having to be caught', function () {
+        const ash = new Trainer('ash');
+        const misty = new Trainer('misty')
+        ash.addPokemon('bulbasaur', 100, 25, 'bulba-growl', 'vine whip', 'grass');
+        expect(ash.pokedex.numberOfPokemon).to.equal(1);
+        misty.addPokemon('blastoise', 100, 12, 'deep rumbling noise', 'water cannon', 'water');
+        expect(misty.pokedex.numberOfPokemon).to.equal(1);
+        expect(ash.pokedex).to.hasOwnProperty('1');
+        //console.log(ash.pokedex)
+        expect(misty.pokedex).to.hasOwnProperty('2');     
+        //console.log(misty.pokedex)   
+    });
+
 });
+
+
+    describe.only('Battle', function() {
+        it('creates a Trainer object with a name property', function () {
+            const ash = new Trainer('ash');
+            const misty = new Trainer('misty');
+            ash.addPokemon('bulbasaur', 100, 25, 'bulba-growl', 'vine whip', 'grass');
+            misty.addPokemon('blastoise', 100, 12, 'deep rumbling noise', 'water cannon', 'water');
+            const battleOff = new Battle(ash, misty);
+            //console.log(battleOff)
+            battleOff.fight()
+        });
+    });
+
+    
+
+
+
 
 // name, HP, attackDamage, sound, move, strength = 'none', weakness = 'none', type = 'default'

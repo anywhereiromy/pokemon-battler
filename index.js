@@ -79,27 +79,63 @@ Trainer.prototype.catch = function (pokeballType) {
         console.log(this.pokedex);
     }
 }
+Trainer.prototype.addPokemon = function(name, HP, attackDamage, sound, move, type = 'default') {
+    this.pokedex.numberOfPokemon++;
+    this.pokedex[this.pokedex.numberOfPokemon] = new Pokemon(name, HP, attackDamage, sound, move, type);
+
+}
 
 function Battle(trainer1, trainer2) {
-    const pokemon1 = trainer1.pokedex[1];
-    const pokemon2 = trainer2.pokedex[1];
+    this.trainer1 = trainer1;
+    this.trainer2 = trainer2;
+    this.pokemon1 = trainer1.pokedex[1];
+    this.pokemon2 = trainer2.pokedex[1];
+    // console.log(this.pokemon1);
+    // console.log(this.pokemon2)
 };
 
 Battle.prototype.fight = function () {
     let firstTurn;
     let secondTurn;
     if (Math.random() < 0.5) {
-        console.log(`${trainer1.name} has won the coin toss!`);
+        console.log(`${this.trainer1.name} has won the coin toss!`);
         firstTurn = this.pokemon1;
         secondTurn = this.pokemon2;
     } else {
-        console.log(`${trainer2.name} has won the coin toss!`);        
+        console.log(`${this.trainer2.name} has won the coin toss!`);        
         firstTurn = this.pokemon2;
         secondTurn = this.pokemon1;
     }
-    this.pokemon1;
-    this.pokemon2;
-}
+    console.log(firstTurn);
+    console.log(secondTurn)
+    let effect;
+    let pokemon1Attack = firstTurn.attackDamage;
+    let pokemon2Attack = secondTurn.attackDamage;
+    if(firstTurn.type === secondTurn.weakness){pokemon1Attack *= 1.25; effect ='It`s not very effective :('}
+    if (firstTurn.type === secondTurn.strength){pokemon1Attack *= 0.75;effect = 'It` super effective!!'};
+    if(secondTurn.type === firstTurn.weakness){pokemon2Attack *= 1.25; effect ='It`s not very effective :('}
+    if (secondTurn.type === firstTurn.strength){pokemon2Attack *= 0.75; effect = 'It` super effective!!'};
 
-module.exports = Pokemon;
-module.exports = Trainer;
+    while (firstTurn.HP > 0 && secondTurn.HP > 0){
+       if (firstTurn.HP > 0){
+        secondTurn.HP  =  secondTurn.HP - pokemon1Attack;
+        console.log(`${firstTurn.name} used ${firstTurn.move}\n ${firstTurn.sound}.\n${effect}`)
+        console.log(`${secondTurn.name} has dropped to ${secondTurn.HP} hp`)
+    };
+        if (secondTurn.HP > 0){    
+      firstTurn.HP = firstTurn.HP - pokemon2Attack;
+      console.log(`${secondTurn.name} used ${secondTurn.move}\n ${secondTurn.sound}.\n${effect}`)
+      console.log(`${firstTurn.name} has dropped to ${firstTurn.HP} hp`)
+        }
+      if (secondTurn.HP <= 0) console.log(`${firstTurn.name} wins!!!!`);
+       if (firstTurn.HP <= 0){ console.log(`${secondTurn.name} wins!!!`)};
+    }
+
+    };
+
+
+
+
+module.exports = {Pokemon, Trainer, Battle};
+ 
+
