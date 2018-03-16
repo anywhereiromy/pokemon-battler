@@ -88,7 +88,7 @@ describe('Trainer', function () {
 });
 
 
-    describe.only('Battle', function() {
+    describe('Battle', function() {
         it('creates a Trainer object with a name property', function () {
             const ash = new Trainer('ash');
             const misty = new Trainer('misty');
