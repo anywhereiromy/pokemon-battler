@@ -22,7 +22,7 @@ inquirer.prompt([
     }
 ]), trainerName]).then(([{type}, {trainerName}]) => {
 
-    console.log(type, trainerName)
+    //console.log(type, trainerName)
 
         const array = [type, trainerName];
         
@@ -144,7 +144,7 @@ inquirer.prompt([
         }]), pokemonMoves, pokemon, type, name])
 }).then(([{pokemonMoves2}, pokemonMoves, pokemon, type, name]) => {
     playerInputArray.push(pokemonMoves2, pokemonMoves, pokemon, type, name);
-    console.log(playerInputArray);
+   // console.log(playerInputArray);
     trainerName1 = playerInputArray[4];
     pokeType = playerInputArray[3];
     pokeName = playerInputArray[2];
@@ -154,8 +154,25 @@ inquirer.prompt([
     attackDamage = (Math.floor((Math.random() * 15)) + 10);
     attackDamage2 = (Math.floor((Math.random() * 15)) + 10);
     playerOne = new Trainer(trainerName1);
-    playerOne.addPokemon(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-    console.log(playerOne);
+    if (pokeType === 'fire'){
+        playerOne.addPokemonF(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+    }else if (pokeType === 'water'){
+        playerOne.addPokemonW(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+   
+    }else if (pokeType === 'grass'){
+        playerOne.addPokemonG(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+        
+    }else if (pokeType === 'luckyDip') {
+        playerOne.addPokemonD(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+        
+    }
+    playerOne.catch('masterball');
+    playerOne.catch('masterball');
+    playerOne.catch('masterball');
+    playerOne.catch('masterball');
+    playerOne.catch('masterball');
+    
+    //console.log(playerOne);
 
     return inquirer.prompt([
         {
@@ -176,7 +193,7 @@ inquirer.prompt([
         }
     ]), trainerName]).then(([{type}, {trainerName}]) => {
     
-        console.log(type, trainerName)
+       // console.log(type, trainerName)
     
             const array = [type, trainerName];
             
@@ -298,7 +315,7 @@ inquirer.prompt([
             }]), pokemonMoves, pokemon, type, name])
     }).then(([{pokemonMoves2}, pokemonMoves, pokemon, type, name]) => {
         playerInputArray.push(pokemonMoves2, pokemonMoves, pokemon, type, name);
-        console.log(playerInputArray);
+       // console.log(playerInputArray);
 
         trainerName1 = playerInputArray[9];
         pokeType = playerInputArray[8];
@@ -309,11 +326,26 @@ inquirer.prompt([
         attackDamage = (Math.floor((Math.random() * 15)) + 10);
         attackDamage2 = (Math.floor((Math.random() * 15)) + 10);
         playerTwo = new Trainer(trainerName1);
-        playerTwo.addPokemon(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-        
+        if (pokeType === 'fire'){
+            playerTwo.addPokemonF(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+        }else if (pokeType === 'water'){
+            playerTwo.addPokemonW(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+       
+        }else if (pokeType === 'grass'){
+            playerTwo.addPokemonG(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+            
+        } else if (pokeType === 'luckyDip') {
+            playerTwo.addPokemonD(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
+            
+        }       
+        playerTwo.catch('masterball');
+        playerTwo.catch('masterball');
+        playerTwo.catch('masterball');
+        playerTwo.catch('masterball');
+        playerTwo.catch('masterball');
         theBattle = new Battle(playerOne,playerTwo);
         theBattle.fight();
-        console.log(playerTwo);
+       // console.log(playerTwo);
     })
 
 })
