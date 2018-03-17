@@ -205,6 +205,7 @@ class Battle {
             //     }
             // }
         };
+        
             if (secondTurn.HP > 0){    
                 if (Math.random() >= 0.9) {
                     criticalHit = 3;
@@ -226,8 +227,13 @@ class Battle {
             //         count2++;
             //     }
             // }
-          if (secondTurn.HP <= 0) console.log(`${firstTurn.name} wins!!!!`);
-           if (firstTurn.HP <= 0){ console.log(`${secondTurn.name} wins!!!`)};
+
+          if (secondTurn.HP <= 0) {
+              console.log(`${firstTurn.name} wins!!!!`);
+          }
+           if (firstTurn.HP <= 0){
+                console.log(`${secondTurn.name} wins!!!`)
+            };
         }
     
         };

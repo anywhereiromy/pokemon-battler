@@ -1,7 +1,14 @@
 const inquirer = require('inquirer');
 const {Pokemon, Trainer, Battle} = require('./index.js');
+const player = require('play-sound')(opts = {})
+const pokemonGif = require('pokemon-gif')
 
 let playerInputArray = [];
+
+player.play('theme.mp3', function(err){
+    if (err) throw err
+  })
+  
 
 inquirer.prompt([
     {
@@ -48,10 +55,11 @@ inquirer.prompt([
                         'Exeggutor',
                         'Tangela'
                         ]
+                        
                     }])
-
+                    
             , ...array])
-        
+      
         } else if (type === 'water') {
                return Promise.all([inquirer.prompt([
                     {
@@ -158,19 +166,31 @@ inquirer.prompt([
         playerOne.addPokemonF(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
     }else if (pokeType === 'water'){
         playerOne.addPokemonW(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-   
+        if(pokemon === 'Blastoise'){
+            player.play('blastoise.mp3', function(err){
+                if (err) throw err
+             })
+        }
     }else if (pokeType === 'grass'){
         playerOne.addPokemonG(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-        
+        if(pokemon === 'Bulbasaur'){
+            player.play('bulbasaur.mp3', function(err){
+                if (err) throw err
+             })
+        }
     }else if (pokeType === 'luckyDip') {
         playerOne.addPokemonD(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-        
+        if(pokemon === 'mysteryPokemon'){
+            player.play('diglett.mp3', function(err){
+                if (err) throw err
+             })
+        }
     }
-    playerOne.catch('masterball');
-    playerOne.catch('masterball');
-    playerOne.catch('masterball');
-    playerOne.catch('masterball');
-    playerOne.catch('masterball');
+    // playerOne.catch('masterball');
+    // playerOne.catch('masterball');
+    // playerOne.catch('masterball');
+    // playerOne.catch('masterball');
+    // playerOne.catch('masterball');
     
     //console.log(playerOne);
 
@@ -330,21 +350,37 @@ inquirer.prompt([
             playerTwo.addPokemonF(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
         }else if (pokeType === 'water'){
             playerTwo.addPokemonW(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-       
+            if(pokemon === 'Blastoise'){
+                player.play('blastoise.mp3', function(err){
+                    if (err) throw err
+                 })
+                }
         }else if (pokeType === 'grass'){
             playerTwo.addPokemonG(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-            
+            if(pokemon === 'Bulbasaur'){
+                player.play('bulbasaur.mp3', function(err){
+                    if (err) throw err
+                 })
+                }
         } else if (pokeType === 'luckyDip') {
             playerTwo.addPokemonD(pokeName, HP, attackDamage, attackDamage2, sound, pokeMove1, pokeMove2, pokeType);
-            
+            if(pokemon === 'mysteryPokemon'){
+                player.play('diglett.mp3', function(err){
+                    if (err) throw err
+                 })
+            }
         }       
-        playerTwo.catch('masterball');
-        playerTwo.catch('masterball');
-        playerTwo.catch('masterball');
-        playerTwo.catch('masterball');
-        playerTwo.catch('masterball');
+        // playerTwo.catch('masterball');
+        // playerTwo.catch('masterball');
+        // playerTwo.catch('masterball');
+        // playerTwo.catch('masterball');
+        // playerTwo.catch('masterball');
         theBattle = new Battle(playerOne,playerTwo);
         theBattle.fight();
+      
+        // player.play('victory.mp3', function(err){
+        //     if (err) throw err
+        //   })
        // console.log(playerTwo);
     })
 
